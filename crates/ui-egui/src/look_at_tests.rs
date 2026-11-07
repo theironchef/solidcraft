@@ -132,3 +132,20 @@ fn editing_a_sketch_in_a_turned_component_faces_its_world_plane() {
     assert!(right.dot(plane.x).abs() > 0.99, "x right: {right:?} vs {:?}", plane.x);
     assert!(up.dot(plane.y) > 0.99, "y up: {up:?} vs {:?}", plane.y);
 }
+
+/// #13111: Look At on a construction plane in the viewport menu turns the view to face it, as on
+/// an origin plane; the plane at -45 degrees to YZ about Y from the report.
+#[test]
+fn the_viewport_menu_looks_at_a_construction_plane() {
+    let mut h = Harness::new();
+    h.app.home.open = false;
+    h.app.preferences.look_at_anim = false;
+    h.app.run("construct.plane.at_angle", json!({"base": "YZ", "axis": "Y", "angle": "-45 deg", "name": "Plane1"})).unwrap();
+    let normal = crate::dialogs::plane_by_name(&h.app.session, "Plane1").expect("the construction plane").normal();
+    assert!((h.app.cam.back().cross(normal)).len() > 1e-3, "the view starts off the plane: {:?}", h.app.cam.back());
+    h.app.menu.plane = Some("Plane1".to_string());
+    let items = crate::context_menu::items(&h.app, &crate::context_menu::Target::Viewport);
+    let look = items.iter().find(|i| i.id == "ui.lookAt").cloned().expect("a plane's menu has Look At");
+    crate::context_menu::run_item(&mut h.app, &look, egui::Pos2::ZERO);
+    assert!((h.app.cam.back().cross(normal)).len() < 1e-6, "facing the construction plane along its normal: {:?}", h.app.cam.back());
+}
