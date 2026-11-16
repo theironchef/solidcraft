@@ -997,19 +997,15 @@ fn implicit_value(a: &crate::surface::implicit::Implicit, x: Point3) -> Option<(
 }
 
 /// Not upstream (#3062): the common point of three analytic surfaces nearest `start`, by
-/// Newton's method on their implicit equations: `None` where one is not a plane, cylinder,
-/// cone or sphere, the normals do not span space at a step, or it does not converge in
-/// [`COMMON_POINT_STEPS`] steps to within rounding of `start`'s size.
-fn common_point(surfaces: [&Surface; 3], start: Point3) -> Option<Point3> {
-    use crate::surface::implicit::AnalyticSupport;
-    let of = |s: &Surface| AnalyticSupport::of(s).map(|a| a.implicit());
-    let [s0, s1, s2] = surfaces;
-    let eq = [of(s0)?, of(s1)?, of(s2)?];
+/// Newton's method on their implicit equations `eq`: `None` where one is a torus, the
+/// normals do not span space at a step, or it does not converge in [`COMMON_POINT_STEPS`]
+/// steps to within rounding of `start`'s size.
+fn common_point(eq: &[crate::surface::implicit::Implicit; 3], start: Point3) -> Option<Point3> {
     let size = 1.0 + start.max_dimension();
     let mut x = start;
     for _ in 0..COMMON_POINT_STEPS {
         let mut rows = [(0.0, Vec3::ZERO); 3];
-        for (row, a) in rows.iter_mut().zip(&eq) {
+        for (row, a) in rows.iter_mut().zip(eq) {
             *row = implicit_value(a, x)?;
         }
         let [(f0, g0), (f1, g1), (f2, g2)] = rows;
@@ -1028,10 +1024,69 @@ fn common_point(surfaces: [&Surface; 3], start: Point3) -> Option<Point3> {
     None
 }
 
+/// Not upstream (#14196): the common point of three faces' surfaces nearest `start`, where
+/// one is not a plane, cylinder, cone or sphere (a thread's helical face, a B-spline), by
+/// Newton's method on the signed distances to them. Each step drops the point on each
+/// surface (in its face's UV domain), takes the tangent plane at the foot, and moves to the
+/// three planes' common point: [`common_point`]'s step, with the foot's unit normal for the
+/// gradient. The drops and evaluations round, so the steps stop shrinking at that noise:
+/// Newton has converged when a step no longer shrinks the last and is at effective zero
+/// for `start`'s size. `None` where a drop fails, the normals do not span space at a step,
+/// or it does not converge in [`COMMON_POINT_STEPS`] steps.
+///
+/// # Errors
+///
+/// Those of the drops and evaluations.
+fn common_point_by_feet(
+    k: &Kernel,
+    faces: [(&Surface, &crate::geom::extent2d::Extent2d); 3],
+    start: Point3,
+) -> Result<Option<Point3>> {
+    use crate::nurbs::knots::Side;
+    use crate::surface::surface::p4::NoObject;
+    use crate::surface::surface::p5::DropPointOptions;
+    let size = 1.0 + start.max_dimension();
+    let mut x = start;
+    let mut guess: [Option<Point2>; 3] = [None; 3];
+    let mut last = f64::INFINITY;
+    for _ in 0..COMMON_POINT_STEPS {
+        let mut rows = [(0.0, Vec3::ZERO); 3];
+        for ((row, &(s, domain)), g) in rows.iter_mut().zip(&faces).zip(guess.iter_mut()) {
+            let opts = DropPointOptions {
+                guess_uv: *g,
+                ..DropPointOptions::default()
+            };
+            let drop = s.drop_point::<NoObject>(k, x, domain, &opts)?;
+            if !drop.success {
+                return Ok(None);
+            }
+            *g = Some(drop.result_uv);
+            let foot = s.evaluate_point(k, drop.result_uv)?;
+            let n = s.evaluate_normal(k, drop.result_uv, Side::Left, Side::Left)?;
+            *row = ((x - foot).dot(n), n);
+        }
+        let [(f0, g0), (f1, g1), (f2, g2)] = rows;
+        let det = g0.dot(g1.cross(g2));
+        if det.is_nan() || det.abs() <= EFF_ZERO {
+            return Ok(None);
+        }
+        // Cramer's rule for g_i . dx = -f_i
+        let dx = (g1.cross(g2) * -f0 + g2.cross(g0) * -f1 + g0.cross(g1) * -f2) / det;
+        let len = dx.length();
+        if len <= 4.0 * f64::EPSILON * size || (len >= last && len <= EFF_ZERO * size) {
+            return Ok(Some(x));
+        }
+        last = len;
+        x += dx;
+    }
+    Ok(None)
+}
+
 impl<O: ClassObject> VertexDefinition<O> {
     /// Not upstream (#3062): where this definition is a crossing of an edge of one B-rep
-    /// (between two faces) and a face of the other, all three on planes, cylinders, cones or
-    /// spheres, it is placed at their common point, solved on the surfaces from its
+    /// (between two faces) and a face of the other, it is placed at the three faces' common
+    /// point (on their implicit equations where all three are planes, cylinders, cones or
+    /// spheres, on their feet otherwise, #14196), solved on the surfaces from its
     /// position: a curve crossing the edge at a grazing angle fixes the crossing along the
     /// edge only to the tolerance over the angle's sine, and the curves meeting there each
     /// come within tolerance of the third face at a different point. Moved only within the
@@ -1045,6 +1100,7 @@ impl<O: ClassObject> VertexDefinition<O> {
         k: &Kernel,
         geometry: &impl ClassGeometry<O>,
     ) -> Result<bool> {
+        use crate::surface::implicit::AnalyticSupport;
         let (edge_pc, face_pc) = match (self.pc1.point_class(), self.pc2.point_class()) {
             (PointClassType::Edge, PointClassType::Face) => (self.pc1, self.pc2),
             (PointClassType::Face, PointClassType::Edge) => (self.pc2, self.pc1),
@@ -1068,7 +1124,21 @@ impl<O: ClassObject> VertexDefinition<O> {
         ) else {
             return Ok(false);
         };
-        let Some(x) = common_point([sa, sb, sf], self.position) else {
+        // Three analytic surfaces meet where their implicit equations do; any other kind is
+        // solved on its feet.
+        let implicit = |s: &Surface| AnalyticSupport::of(s).map(|a| a.implicit());
+        let x = if let (Some(ia), Some(ib), Some(i_f)) = (implicit(sa), implicit(sb), implicit(sf))
+        {
+            common_point(&[ia, ib, i_f], self.position)
+        } else {
+            let (da, db, df) = (
+                crate::topology::face::p2::uv_domain(eb, a)?,
+                crate::topology::face::p2::uv_domain(eb, b)?,
+                crate::topology::face::p2::uv_domain(fb, f)?,
+            );
+            common_point_by_feet(k, [(sa, &da), (sb, &db), (sf, &df)], self.position)?
+        };
+        let Some(x) = x else {
             return Ok(false);
         };
         let moved = x.distance(self.position);

@@ -1841,6 +1841,25 @@ fn a_traced_cut_whose_round_is_tangent_to_a_thin_ribs_side_removes_its_tool() {
     }
 }
 
+/// #14196's thread cut as SolidCraft passed it: a 30 x 30 x 20 block with a Ø8.5 hole and a Ø4
+/// cross hole whose top is level with one of the thread's helical edges (centre z = 10, M10 x
+/// 1.5), less the modelled thread. That edge crosses the cross hole's cylinder at the thread's
+/// 2.9° lead angle, so the crossing along it is fixed only to the tolerance over sin 2.9°. Placed
+/// there, the vertex lay 1.2e-5 off where the cross hole's curves on the thread's B-spline faces
+/// end, and the check refused the face ("partially coincident edges"). Placed at the three faces'
+/// common point it is valid. The cut's volume is 16555.288075: the cross hole one or two pitches
+/// lower (z = 8.5, 7) gives the same to 1e-12, as the thread's overlap with it repeats with the
+/// pitch, and it lies between z = 9.99's 16555.2955 and 10.01's 16555.2812.
+#[test]
+fn a_thread_cut_whose_helical_edge_grazes_a_cross_hole_is_valid() {
+    all_fixes();
+    let body = traced_operands("issue_14196_thread_past_cross_hole");
+    let r = boolean(body("target"), body("tool"), BooleanOp::Subtract)
+        .unwrap()
+        .unwrap();
+    one_valid_solid_of_volume(&r, [61, 180, 120], 16_555.288_075, 1e-9);
+}
+
 /// #16935's intersect as SolidCraft passed it. Both bodies are a decagon of side 10, 10 tall, with
 /// a 6 tall top tapered at 45°. The target has a 6 mm groove down the middle of each slope, its
 /// edges rounded at 1 mm; the tool has the ten edges between the slopes rounded at 5 mm. Near the
