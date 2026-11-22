@@ -925,18 +925,12 @@ fn a_hole_drilled_from_a_sketch_on_a_turned_plane_cuts_through() {
 /// (the drill point is in the air past the tube), and the tube keeps 4 + 2 faces.
 #[test]
 fn holes_drilled_out_from_a_tubes_axis_start_on_its_bore() {
-    let (ro, ri, r, len) = (30.0_f64, 28.5_f64, 2.0_f64, 900.0_f64);
-    // Over the disc w² + z² <= r², the wall's length along the axis at w; w = r sin t.
-    let n = 20_000;
-    let step = std::f64::consts::PI / n as f64;
-    let one: f64 = (0..n)
-        .map(|i| {
-            let t = -std::f64::consts::FRAC_PI_2 + (i as f64 + 0.5) * step;
-            let w = r * t.sin();
-            2.0 * r * t.cos() * ((ro * ro - w * w).sqrt() - (ri * ri - w * w).sqrt()) * r * t.cos() * step
-        })
-        .sum();
-    let expected = std::f64::consts::PI * (ro * ro - ri * ri) * len - 2.0 * one;
+    // The tube, π (30² − 28.5²) · 900 = 248107.27982 mm³, less two Ø4 holes through its
+    // wall. Each removes the integral over the hole's disc of the wall's radial depth,
+    // ∫∫ (√(30² − w²) − √(28.5² − w²)) over w² + z² ≤ 2², which is 18.86060 mm³. The
+    // drill's 118° point lies past the outer wall, so it removes nothing.
+    let expected = 248069.55862_f64;
+    let (ro, ri) = (30.0_f64, 28.5_f64);
     let s2 = std::f64::consts::FRAC_1_SQRT_2;
     let sketch = |s: &mut Session, x: f64, name: &str| {
         run(s, "sketch.create", json!({"plane": {"origin": [0, 0, 0], "x_dir": [x, x, 0], "y_dir": [0, 0, 1]}, "name": name}));
