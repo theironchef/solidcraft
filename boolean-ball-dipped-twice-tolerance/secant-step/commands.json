@@ -1,0 +1,2558 @@
+[
+ {
+  "command": "file.new",
+  "params": {
+   "name": "#21737: the secant step off a shallow dip",
+   "width": 1280,
+   "height": 800,
+   "units": "Points",
+   "backgroundContents": "white",
+   "created": 1795564800
+  }
+ },
+ {
+  "command": "shape.rectangle",
+  "params": {
+   "x": 0,
+   "y": 0,
+   "width": 1280,
+   "height": 800
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$1.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$1.id",
+   "none": true
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 40,
+   "y": 44,
+   "text": "#21737: the step that leaves a ball dipped twice the tolerance",
+   "size": 20,
+   "font": "Helvetica",
+   "style": "Bold",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$4.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 40,
+   "y": 72,
+   "text": "Stepping off the edge where the ball meets the face, until the faces are farther apart than the tolerance t.",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$6.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 40,
+   "y": 94,
+   "text": "t = 2e-5 mm, the two edges' tolerances (1e-5 each) added. Distances from a model of acid-10's R15 ball; the steps of main settle 0.009 mm out, as the PR traced.",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$8.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 40,
+   "y": 140,
+   "text": "The dip (not to scale)",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Bold",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$10.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "shape.rectangle",
+  "params": {
+   "x": 40,
+   "y": 330.0,
+   "width": 400,
+   "height": 120
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$12.id",
+   "color": "#f0f0f0"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$12.id",
+   "none": true
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [],
+   "d": "M 180.00 287.83 A 160.0 160.0 0 0 0 420.00 287.83"
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$15.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$15.id",
+   "color": "#1f6fb2"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$15.id",
+   "weight": 3,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 40,
+     "y": 330.0
+    },
+    {
+     "x": 239.20526338571733,
+     "y": 330.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$19.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$19.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$19.id",
+   "weight": 2,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 360.79473661428267,
+     "y": 330.0
+    },
+    {
+     "x": 440,
+     "y": 330.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$23.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$23.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$23.id",
+   "weight": 2,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 300.0,
+     "y": 330.0
+    },
+    {
+     "x": 360.79473661428267,
+     "y": 330.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$27.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$27.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$27.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    7,
+    5
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 355.79473661428267,
+   "y": 325.0,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$31.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$31.id",
+   "none": true
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 234.20526338571733,
+   "y": 325.0,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$34.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$34.id",
+   "none": true
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 60,
+   "y": 420,
+   "text": "block face",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$37.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 300.0,
+   "y": 230,
+   "text": "ball, R15",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$39.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 330.0,
+   "y": 322.0,
+   "text": "0.0245",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$41.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 374.79473661428267,
+   "y": 350.0,
+   "text": "edge: the circle",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$43.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 374.79473661428267,
+   "y": 367.0,
+   "text": "faces meet at 0.094\u00b0",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$45.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 300.0,
+     "y": 326.0
+    },
+    {
+     "x": 300.0,
+     "y": 342.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$47.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$47.id",
+   "color": "#555555"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$47.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 300.0,
+   "y": 364.0,
+   "text": "dip 2e-5",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$51.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "shape.rectangle",
+  "params": {
+   "x": 520.0,
+   "y": 500.0,
+   "width": 700.0,
+   "height": 200.0
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$53.id",
+   "color": "#dce9f5"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$53.id",
+   "none": true
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 700.0
+    },
+    {
+     "x": 1230.0,
+     "y": 700.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$56.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$56.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$56.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    7,
+    5
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 700.0
+    },
+    {
+     "x": 520.0,
+     "y": 190.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$60.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$60.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$60.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    7,
+    5
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 500.0
+    },
+    {
+     "x": 1220.0,
+     "y": 500.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$64.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$64.id",
+   "color": "#555555"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$64.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 300.0
+    },
+    {
+     "x": 1220.0,
+     "y": 300.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$68.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$68.id",
+   "color": "#555555"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$68.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    7,
+    5
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 510.0,
+   "y": 705.0,
+   "text": "0",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$72.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 510.0,
+   "y": 505.0,
+   "text": "t",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$74.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 510.0,
+   "y": 305.0,
+   "text": "2t",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$76.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 700.0
+    },
+    {
+     "x": 520.0,
+     "y": 706.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$78.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$78.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$78.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 520.0,
+   "y": 724.0,
+   "text": "0.000",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$82.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 679.0909090909091,
+     "y": 700.0
+    },
+    {
+     "x": 679.0909090909091,
+     "y": 706.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$84.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$84.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$84.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 679.0909090909091,
+   "y": 724.0,
+   "text": "0.005",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$88.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 838.1818181818182,
+     "y": 700.0
+    },
+    {
+     "x": 838.1818181818182,
+     "y": 706.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$90.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$90.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$90.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 838.1818181818182,
+   "y": 724.0,
+   "text": "0.010",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$94.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 997.2727272727273,
+     "y": 700.0
+    },
+    {
+     "x": 997.2727272727273,
+     "y": 706.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$96.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$96.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$96.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 997.2727272727273,
+   "y": 724.0,
+   "text": "0.015",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$100.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 1156.3636363636365,
+     "y": 700.0
+    },
+    {
+     "x": 1156.3636363636365,
+     "y": 706.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$102.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$102.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$102.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 1156.3636363636365,
+   "y": 724.0,
+   "text": "0.020",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$106.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 1220.0,
+   "y": 750.0,
+   "text": "s, the step off the edge along each face (mm)",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$108.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 510.0,
+   "y": 180.0,
+   "text": "d, the faces' distance",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "center"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$110.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 699.9999999865386
+    },
+    {
+     "x": 532.7272727272727,
+     "y": 693.4146940353824
+    },
+    {
+     "x": 545.4545454545455,
+     "y": 686.7227214452458
+    },
+    {
+     "x": 558.1818181818182,
+     "y": 679.9240822263644
+    },
+    {
+     "x": 570.9090909090909,
+     "y": 673.0187763753702
+    },
+    {
+     "x": 583.6363636363636,
+     "y": 666.0068039066945
+    },
+    {
+     "x": 596.3636363636364,
+     "y": 658.8881648169292
+    },
+    {
+     "x": 609.0909090909091,
+     "y": 651.662859084855
+    },
+    {
+     "x": 621.8181818181819,
+     "y": 644.3308867425237
+    },
+    {
+     "x": 634.5454545454545,
+     "y": 636.8922477863256
+    },
+    {
+     "x": 647.2727272727273,
+     "y": 629.3469422304523
+    },
+    {
+     "x": 660.0,
+     "y": 621.6949700357281
+    },
+    {
+     "x": 672.7272727272727,
+     "y": 613.9363312340126
+    },
+    {
+     "x": 685.4545454545455,
+     "y": 606.0710258215007
+    },
+    {
+     "x": 698.1818181818182,
+     "y": 598.0990537944276
+    },
+    {
+     "x": 710.909090909091,
+     "y": 590.0204151667137
+    },
+    {
+     "x": 723.6363636363636,
+     "y": 581.8351099344676
+    },
+    {
+     "x": 736.3636363636364,
+     "y": 573.543138076016
+    },
+    {
+     "x": 749.0909090909091,
+     "y": 565.1444996228348
+    },
+    {
+     "x": 761.8181818181818,
+     "y": 556.6391945886802
+    },
+    {
+     "x": 774.5454545454545,
+     "y": 548.0272229517012
+    },
+    {
+     "x": 787.2727272727273,
+     "y": 539.3085847077617
+    },
+    {
+     "x": 800.0,
+     "y": 530.4832798704721
+    },
+    {
+     "x": 812.7272727272727,
+     "y": 521.551308453297
+    },
+    {
+     "x": 825.4545454545455,
+     "y": 512.5126704342213
+    },
+    {
+     "x": 838.1818181818182,
+     "y": 503.3673658266755
+    },
+    {
+     "x": 850.909090909091,
+     "y": 494.1153946440743
+    },
+    {
+     "x": 863.6363636363637,
+     "y": 484.7567568641563
+    },
+    {
+     "x": 876.3636363636365,
+     "y": 475.29145250023726
+    },
+    {
+     "x": 889.0909090909091,
+     "y": 465.71948156555027
+    },
+    {
+     "x": 901.8181818181819,
+     "y": 456.04084405551583
+    },
+    {
+     "x": 914.5454545454546,
+     "y": 446.25553996553907
+    },
+    {
+     "x": 927.2727272727273,
+     "y": 436.3635693086362
+    },
+    {
+     "x": 940.0,
+     "y": 426.3649320623495
+    },
+    {
+     "x": 952.7272727272727,
+     "y": 416.25962825742846
+    },
+    {
+     "x": 965.4545454545455,
+     "y": 406.04765788904535
+    },
+    {
+     "x": 978.1818181818182,
+     "y": 395.7290209523591
+    },
+    {
+     "x": 990.909090909091,
+     "y": 385.3037174778987
+    },
+    {
+     "x": 1003.6363636363636,
+     "y": 374.7717474251961
+    },
+    {
+     "x": 1016.3636363636365,
+     "y": 364.1331108247524
+    },
+    {
+     "x": 1029.090909090909,
+     "y": 353.3878076537647
+    },
+    {
+     "x": 1041.818181818182,
+     "y": 342.5358379425611
+    },
+    {
+     "x": 1054.5454545454545,
+     "y": 331.57720168600264
+    },
+    {
+     "x": 1067.2727272727273,
+     "y": 320.5118988788641
+    },
+    {
+     "x": 1080.0,
+     "y": 309.33992953363395
+    },
+    {
+     "x": 1092.727272727273,
+     "y": 298.0612936272617
+    },
+    {
+     "x": 1105.4545454545455,
+     "y": 286.67599120758683
+    },
+    {
+     "x": 1118.1818181818182,
+     "y": 275.18402223369554
+    },
+    {
+     "x": 1130.909090909091,
+     "y": 263.5853867356402
+    },
+    {
+     "x": 1143.6363636363637,
+     "y": 251.88008470789617
+    },
+    {
+     "x": 1156.3636363636365,
+     "y": 240.06811614492813
+    },
+    {
+     "x": 1169.090909090909,
+     "y": 228.14948105879643
+    },
+    {
+     "x": 1181.818181818182,
+     "y": 216.12417947939258
+    },
+    {
+     "x": 1194.5454545454545,
+     "y": 203.99221134770164
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$112.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$112.id",
+   "color": "#1f6fb2"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$112.id",
+   "weight": 3,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 520.0,
+     "y": 700.0
+    },
+    {
+     "x": 828.1674604702202,
+     "y": 500.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$116.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$116.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$116.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    3,
+    3
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 623.0909090909091,
+     "y": 643.5918228622517
+    },
+    {
+     "x": 1152.5100065398783,
+     "y": 300.0
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$120.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$120.id",
+   "color": "#999999"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$120.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": [
+    7,
+    5
+   ],
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 515.6363636363636,
+   "y": 694.6732680227793,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$124.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$124.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$124.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 516.2727272727273,
+   "y": 694.3462693963555,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$128.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$128.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$128.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 518.8181818181819,
+   "y": 693.0356082033578,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$132.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$132.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$132.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 526.4545454545455,
+   "y": 689.078024631813,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$136.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$136.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$136.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 549.3636363636364,
+   "y": 676.9748739961564,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$140.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$140.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$140.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 618.0909090909091,
+   "y": 638.5918228622517,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$144.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$144.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$144.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 824.2727272727275,
+   "y": 504.7802790560278,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$148.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$148.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$148.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 823.1674604702202,
+   "y": 505.57222431108414,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$152.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$152.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$152.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 794.1270723450451,
+   "y": 526.0919896775653,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$156.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$156.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$156.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 798.047955047404,
+   "y": 523.3539454929701,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$160.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$160.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$160.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 801.4002505451554,
+   "y": 521.004931303674,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$164.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$164.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$164.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.4214770627675,
+   "y": 521.6915405030736,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$168.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$168.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$168.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.1035154331578,
+   "y": 521.9144547177686,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$172.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$172.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$172.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.277123349664,
+   "y": 521.7927511959973,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$176.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$176.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$176.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.2964548262577,
+   "y": 521.779198117914,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$180.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$180.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$180.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.2706444238313,
+   "y": 521.797293449782,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$184.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$184.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$184.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.2713905937236,
+   "y": 521.7967703123793,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$188.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$188.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$188.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.2672694781538,
+   "y": 521.7996595407924,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$192.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$192.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$192.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 800.2744733700765,
+   "y": 521.7946090354675,
+   "width": 10,
+   "height": 10
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$196.id",
+   "color": "#ffffff"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$196.id",
+   "color": "#000000"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$196.id",
+   "weight": 1.5,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "shape.ellipse",
+  "params": {
+   "x": 1146.5100065398783,
+   "y": 237.65586440229504,
+   "width": 12,
+   "height": 12
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$200.id",
+   "color": "#1f6fb2"
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$200.id",
+   "none": true
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 1215.0,
+   "y": 520.0,
+   "text": "d \u2264 t: the faces read as touching, and the steps go on",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$203.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 1215.0,
+   "y": 492.0,
+   "text": "exit: d > t",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "right"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$205.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 528.0,
+   "y": 292.0,
+   "text": "2t: this PR's secant target",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$207.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 901,
+     "y": 592
+    },
+    {
+     "x": 813.2744733700765,
+     "y": 532.7946090354675
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$209.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$209.id",
+   "color": "#555555"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$209.id",
+   "weight": 1,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 905,
+   "y": 600,
+   "text": "main: s \u2190 t\u00b7\u0394s/\u0394d, where a line through 0 with the",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$213.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 905,
+   "y": 617,
+   "text": "secant's slope (dotted) reaches t. From round 8 the",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$215.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 905,
+   "y": 634,
+   "text": "steps settle at s = 0.0090, d = 0.87 t, inside",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$217.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 905,
+   "y": 651,
+   "text": "the band: d stops changing and reads as coincident.",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$219.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "path.create",
+  "params": {
+   "anchors": [
+    {
+     "x": 860,
+     "y": 240
+    },
+    {
+     "x": 1143.5100065398783,
+     "y": 241.65586440229504
+    }
+   ],
+   "closed": false
+  }
+ },
+ {
+  "command": "paint.setFill",
+  "params": {
+   "id": "$221.id",
+   "none": true
+  }
+ },
+ {
+  "command": "paint.setStroke",
+  "params": {
+   "id": "$221.id",
+   "color": "#555555"
+  }
+ },
+ {
+  "command": "stroke.set",
+  "params": {
+   "id": "$221.id",
+   "weight": 1,
+   "cap": "butt",
+   "join": "miter",
+   "dash": null,
+   "startArrow": null,
+   "endArrow": null,
+   "arrowAlign": "tip"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 560,
+   "y": 200,
+   "text": "this PR: s \u2190 s + (2t \u2212 d)\u00b7\u0394s/\u0394d, where the secant through",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$225.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 560,
+   "y": 217,
+   "text": "the last two steps (dashed) reaches 2t. It lands at s = 0.0199,",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$227.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 560,
+   "y": 234,
+   "text": "d = 2.28 t > t: the faces part, and the ball's face is outside.",
+   "size": 12,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$229.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.create",
+  "params": {
+   "x": 539.0909090909091,
+   "y": 580.0,
+   "text": "d(s)",
+   "size": 14,
+   "font": "Helvetica",
+   "style": "Regular",
+   "color": "#000000",
+   "justify": "left"
+  }
+ },
+ {
+  "command": "text.setStyle",
+  "params": {
+   "id": "$231.id",
+   "fill": "#000000",
+   "stroke": "none"
+  }
+ },
+ {
+  "command": "text.fonts",
+  "params": {}
+ },
+ {
+  "command": "document.save",
+  "params": {
+   "path": "secant-step.vectorcraft",
+   "format": "vectorcraft",
+   "compress": false,
+   "preview": false,
+   "pdfCompatible": false,
+   "modified": 1795564800
+  }
+ },
+ {
+  "command": "document.export",
+  "params": {
+   "path": "secant-step.png",
+   "format": "png",
+   "scale": 1.5,
+   "background": "white",
+   "artboard": 0
+  }
+ },
+ {
+  "command": "document.export",
+  "params": {
+   "path": "secant-step.svg",
+   "format": "svg",
+   "artboard": 0,
+   "svg": {
+    "outlineText": false,
+    "decimals": 3,
+    "metadata": true
+   }
+  }
+ }
+]

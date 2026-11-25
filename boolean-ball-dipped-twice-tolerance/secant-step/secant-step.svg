@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="800" viewBox="0 0 1280 800">
+  <title>Artboard 1</title>
+  <metadata>
+    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <rdf:Description rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:title>#21737: the secant step off a shallow dip</dc:title>
+        <dc:date>2026-11-25T00:00:00Z</dc:date>
+      </rdf:Description>
+    </rdf:RDF>
+  </metadata>
+  <g id="Layer_1" data-name="Layer 1">
+    <rect x="0" y="0" width="1280" height="800" fill="#ffffff"/>
+    <text transform="matrix(1 0 0 1 40 44)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#000000"><tspan x="0" y="0">#21737: the step that leaves a ball dipped twice the tolerance</tspan></text>
+    <text transform="matrix(1 0 0 1 40 72)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000"><tspan x="0" y="0">Stepping off the edge where the ball meets the face, until the faces are farther apart than the tolerance t.</tspan></text>
+    <text transform="matrix(1 0 0 1 40 94)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">t = 2e-5 mm, the two edges&apos; tolerances (1e-5 each) added. Distances from a model of acid-10&apos;s R15 ball; the steps of main settle 0.009 mm out, as the PR traced.</tspan></text>
+    <text transform="matrix(1 0 0 1 40 140)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#000000"><tspan x="0" y="0">The dip (not to scale)</tspan></text>
+    <rect x="40" y="330" width="400" height="120" fill="#f0f0f0"/>
+    <path d="M180 287.83 C210.373 322.27 254.08 342 300 342 C345.92 342 389.627 322.27 420 287.83" fill="none" stroke="#1f6fb2" stroke-width="3" stroke-miterlimit="10"/>
+    <line x1="40" y1="330" x2="239.205" y2="330" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10"/>
+    <line x1="360.795" y1="330" x2="440" y2="330" fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10"/>
+    <line x1="300" y1="330" x2="360.795" y2="330" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="7 5"/>
+    <circle cx="360.795" cy="330" r="5" fill="#000000"/>
+    <circle cx="239.205" cy="330" r="5" fill="#000000"/>
+    <text transform="matrix(1 0 0 1 60 420)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000"><tspan x="0" y="0">block face</tspan></text>
+    <text transform="matrix(1 0 0 1 300 230)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="middle"><tspan x="0" y="0">ball, R15</tspan></text>
+    <text transform="matrix(1 0 0 1 330 322)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.0245</tspan></text>
+    <text transform="matrix(1 0 0 1 374.795 350)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">edge: the circle</tspan></text>
+    <text transform="matrix(1 0 0 1 374.795 367)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">faces meet at 0.094°</tspan></text>
+    <line x1="300" y1="326" x2="300" y2="342" fill="none" stroke="#555555" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 300 364)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">dip 2e-5</tspan></text>
+    <rect x="520" y="500" width="700" height="200" fill="#dce9f5"/>
+    <line x1="520" y1="700" x2="1230" y2="700" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="7 5"/>
+    <line x1="520" y1="700" x2="520" y2="190" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="7 5"/>
+    <line x1="520" y1="500" x2="1220" y2="500" fill="none" stroke="#555555" stroke-width="1.5" stroke-miterlimit="10"/>
+    <line x1="520" y1="300" x2="1220" y2="300" fill="none" stroke="#555555" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="7 5"/>
+    <text transform="matrix(1 0 0 1 510 705)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="end"><tspan x="0" y="0">0</tspan></text>
+    <text transform="matrix(1 0 0 1 510 505)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="end"><tspan x="0" y="0">t</tspan></text>
+    <text transform="matrix(1 0 0 1 510 305)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="end"><tspan x="0" y="0">2t</tspan></text>
+    <line x1="520" y1="700" x2="520" y2="706" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 520 724)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.000</tspan></text>
+    <line x1="679.091" y1="700" x2="679.091" y2="706" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 679.091 724)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.005</tspan></text>
+    <line x1="838.182" y1="700" x2="838.182" y2="706" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 838.182 724)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.010</tspan></text>
+    <line x1="997.273" y1="700" x2="997.273" y2="706" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 997.273 724)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.015</tspan></text>
+    <line x1="1156.364" y1="700" x2="1156.364" y2="706" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 1156.364 724)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="middle"><tspan x="0" y="0">0.020</tspan></text>
+    <text transform="matrix(1 0 0 1 1220 750)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="end"><tspan x="0" y="0">s, the step off the edge along each face (mm)</tspan></text>
+    <text transform="matrix(1 0 0 1 510 180)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000" text-anchor="middle"><tspan x="0" y="0">d, the faces&apos; distance</tspan></text>
+    <polyline points="520,700 532.727,693.415 545.455,686.723 558.182,679.924 570.909,673.019 583.636,666.007 596.364,658.888 609.091,651.663 621.818,644.331 634.545,636.892 647.273,629.347 660,621.695 672.727,613.936 685.455,606.071 698.182,598.099 710.909,590.02 723.636,581.835 736.364,573.543 749.091,565.144 761.818,556.639 774.545,548.027 787.273,539.309 800,530.483 812.727,521.551 825.455,512.513 838.182,503.367 850.909,494.115 863.636,484.757 876.364,475.291 889.091,465.719 901.818,456.041 914.545,446.256 927.273,436.364 940,426.365 952.727,416.26 965.455,406.048 978.182,395.729 990.909,385.304 1003.636,374.772 1016.364,364.133 1029.091,353.388 1041.818,342.536 1054.545,331.577 1067.273,320.512 1080,309.34 1092.727,298.061 1105.455,286.676 1118.182,275.184 1130.909,263.585 1143.636,251.88 1156.364,240.068 1169.091,228.149 1181.818,216.124 1194.545,203.992" fill="none" stroke="#1f6fb2" stroke-width="3" stroke-miterlimit="10"/>
+    <line x1="520" y1="700" x2="828.167" y2="500" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="3 3"/>
+    <line x1="623.091" y1="643.592" x2="1152.51" y2="300" fill="none" stroke="#999999" stroke-width="1.5" stroke-miterlimit="10" stroke-dasharray="7 5"/>
+    <circle cx="520.636" cy="699.673" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="521.273" cy="699.346" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="523.818" cy="698.036" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="531.455" cy="694.078" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="554.364" cy="681.975" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="623.091" cy="643.592" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="829.273" cy="509.78" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="828.167" cy="510.572" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="799.127" cy="531.092" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="803.048" cy="528.354" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="806.4" cy="526.005" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.421" cy="526.692" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.104" cy="526.914" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.277" cy="526.793" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.296" cy="526.779" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.271" cy="526.797" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.271" cy="526.797" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.267" cy="526.8" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="805.274" cy="526.795" r="5" fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-miterlimit="10"/>
+    <circle cx="1152.51" cy="243.656" r="6" fill="#1f6fb2"/>
+    <text transform="matrix(1 0 0 1 1215 520)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="end"><tspan x="0" y="0">d ≤ t: the faces read as touching, and the steps go on</tspan></text>
+    <text transform="matrix(1 0 0 1 1215 492)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000" text-anchor="end"><tspan x="0" y="0">exit: d &gt; t</tspan></text>
+    <text transform="matrix(1 0 0 1 528 292)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">2t: this PR&apos;s secant target</tspan></text>
+    <line x1="901" y1="592" x2="813.274" y2="532.795" fill="none" stroke="#555555" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 905 600)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">main: s ← t·Δs/Δd, where a line through 0 with the</tspan></text>
+    <text transform="matrix(1 0 0 1 905 617)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">secant&apos;s slope (dotted) reaches t. From round 8 the</tspan></text>
+    <text transform="matrix(1 0 0 1 905 634)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">steps settle at s = 0.0090, d = 0.87 t, inside</tspan></text>
+    <text transform="matrix(1 0 0 1 905 651)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">the band: d stops changing and reads as coincident.</tspan></text>
+    <line x1="860" y1="240" x2="1143.51" y2="241.656" fill="none" stroke="#555555" stroke-miterlimit="10"/>
+    <text transform="matrix(1 0 0 1 560 200)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">this PR: s ← s + (2t − d)·Δs/Δd, where the secant through</tspan></text>
+    <text transform="matrix(1 0 0 1 560 217)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">the last two steps (dashed) reaches 2t. It lands at s = 0.0199,</tspan></text>
+    <text transform="matrix(1 0 0 1 560 234)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="12" fill="#000000"><tspan x="0" y="0">d = 2.28 t &gt; t: the faces part, and the ball&apos;s face is outside.</tspan></text>
+    <text transform="matrix(1 0 0 1 539.091 580)" x="0" y="0" xml:space="preserve" font-family="Helvetica, sans-serif" font-size="14" fill="#000000"><tspan x="0" y="0">d(s)</tspan></text>
+  </g>
+</svg>
