@@ -368,7 +368,13 @@ face's surface and intersects neighbouring offsets instead of filling convex edg
   rail meeting the tangent edge between its support and the next round) and every face moves by
   the one distance (not in a local operation, nor at a face the shell keeps). There every face's
   offset passes through the one image, and a tangential crossing is found only to about the
-  square root of its residual along the curve.
+  square root of its residual along the curve. A cut within 5° of tangent counts only where
+  the curve passes through the neighbour's offset by more than the face's tolerance
+  (`passes_through`): the curve's second-order model locates the deepest point, the depth is
+  that point's distance from the offset, and the contact rule reads it (`within_contact_tol`,
+  [booleans.md](booleans.md) §6). A boss overhanging its face's edge by the contact tolerance
+  joins with one touching vertex there, and the offsets of its wall and of the side dip into
+  each other by that much: they touch, as the input did.
 - **The merge** joins the offset faces into one body. When it leaves two or more finite regions,
   an inset solid offset keeps those `cavity::is_cavity_region` finds cavity: a region with a face
   that has the input's face one wall behind it and none with it one wall ahead (a point solve

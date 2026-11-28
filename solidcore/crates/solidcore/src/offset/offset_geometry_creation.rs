@@ -254,7 +254,7 @@ use crate::geom::geom_utility::p1::point_project_to_plane;
 use crate::geom::geom_utility::p2::{circle_plane_intersect, ContinuityType, CurveIntersection};
 use crate::geom::global_solver::{ObjectZoneTol, SolutionRequested, SolverOperation};
 use crate::geom::solution_array::{SolutionArray, SolutionObject, SolutionType};
-use crate::geom::tol::{approx_tol3d, are_same, zone_tol_3d_of_curve};
+use crate::geom::tol::{approx_tol3d, are_same, within_contact_tol, zone_tol_3d_of_curve};
 use crate::intersect::point_class::{ClassGeometry, ClassObject};
 use crate::kernel::Kernel;
 use crate::math::det;
@@ -281,6 +281,7 @@ use crate::surface::surface::p2::{
     SPHERE_TYPE, TORUS_TYPE,
 };
 use crate::surface::surface::p4::NoObject;
+use crate::surface::surface::p5::DropPointOptions;
 use crate::surface::surface::Surface;
 use crate::surface::surface_cache::face_context::FaceQueries;
 use crate::surface::surface_cache::{SurfaceCache, SurfaceCacheState};
@@ -3055,15 +3056,26 @@ fn between_faces<O: ClassObject + SolutionObject>(
 /// `g1^2 / (2 |g2|)` from the surface. Within `tol` that is a touch: a curve exact to `tol`
 /// that touches the surface meets it twice, close together, wherever the error leaves it.
 ///
+/// Not upstream (solidcraft#22787): the depth is measured, not taken from the model. The
+/// model puts the deepest point at `s = -g1 / g2`; the curve's point there (on its natural
+/// interval) is dropped onto the surface over `domain`, from `uv`, and its distance is the
+/// depth. The model's own value is off by its third-order terms, about `g1^2` of it (3.6e-6
+/// of a lens 1e-5 deep), and that decided a dip at the tolerance either way. "Within" is read
+/// as every contact site reads it ([`within_contact_tol`]), so a dip of exactly `tol` is a
+/// touch: a boss overhanging its face's edge by the contact tolerance joins with one touching
+/// vertex there, and the offsets of its wall and of the side dip into each other by that much.
+///
 /// # Errors
 ///
 /// [`OffsetFailure::CrossingUndecided`] where the curve stops or the surface is singular (no
-/// tangent plane); those of the evaluations.
+/// tangent plane), or the deepest point does not drop onto the surface; those of the
+/// evaluations and of the drop.
 fn passes_through(
     k: &Kernel,
     curve: &Curve,
     t: f64,
     surface: &Surface,
+    domain: &Extent2d,
     uv: Point2,
     tol: f64,
 ) -> Result<bool> {
@@ -3106,7 +3118,34 @@ fn passes_through(
     let normal_curvature = n.dot(duu) * a * a + 2.0 * n.dot(duv) * a * b + n.dot(dvv) * b * b;
     let g1 = n.dot(tangent);
     let g2 = n.dot(d2 - tangent * d2.dot(tangent)) / speed2 - normal_curvature;
-    Ok(g1 * g1 > 2.0 * g2.abs() * tol)
+    // a curve along the surface dips nowhere; one that does not bend back passes through
+    // however shallow
+    if g1 == 0.0 {
+        return Ok(false);
+    }
+    if g2 == 0.0 {
+        return Ok(true);
+    }
+    // the deepest point, `s = -g1 / g2` along the curve, on the curve
+    let ivl = curve.natural_interval();
+    let t_dip = (t - g1 / (g2 * speed2.sqrt()))
+        .max(ivl.min())
+        .min(ivl.max());
+    let dip = curve.evaluate_point(k, t_dip)?;
+    let dropped = surface.drop_point::<NoObject>(
+        k,
+        dip,
+        domain,
+        &DropPointOptions {
+            guess_uv: Some(uv),
+            ..DropPointOptions::default()
+        },
+    )?;
+    if !dropped.success {
+        return Err(undecided());
+    }
+    let size = pv.first().ok_or_else(short)?.max_dimension();
+    Ok(!within_contact_tol(dropped.gap, tol, size))
 }
 
 /// The offset geometry creator (`SmOffsetGeometryCreation`).
@@ -5399,6 +5438,7 @@ impl OffsetGeometryCreation {
                                 curve_of(brep, curve_3d)?,
                                 sol.start.param(0)?,
                                 surface_of(brep, ext_surface)?,
+                                &ext_domain,
                                 uv,
                                 tol_3d,
                             )?);

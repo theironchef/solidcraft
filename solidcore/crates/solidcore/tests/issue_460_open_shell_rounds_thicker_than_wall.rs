@@ -398,6 +398,71 @@ fn issue_22785_a_boss_tangent_to_the_outer_edge_stays_solid_in_a_closed_shell() 
     }
 }
 
+/// The angle of a cylinder's seam off +X, in degrees, as SolidCraft builds a cylinder (its
+/// kernel's `SEAM_ANGLE`, 0.6131 rad): off the axes, where faces placed on a grid would cut it.
+const SEAM_ANGLE_DEG: f64 = 0.6131 * 180.0 / PI;
+
+/// solidcraft#22787: the boss of #22785 overhanging the block's +X side by `over`, 1e-6 and
+/// the contact tolerance 1e-5, shelled closed with walls of 0.5 and 1, thinner than the boss's
+/// radius. The join leaves the boss's foot circle touching the top face's outer edge at one
+/// vertex within the contact tolerance, and the offsets of the side and of the boss keep that
+/// near-tangent contact. The shell was refused at every wall (0.45.0 built the 1e-5 overhang);
+/// an exact tangent and an overhang of 1e-4 built.
+///
+/// Closed form: the block and the boss, 60 * 40 * 25 + pi * 2.4^2 * 4.8, less the block's
+/// inset by the wall, (60 - 2t) (40 - 2t) (25 - 2t), less the boss's cavity of radius 2.4 - t
+/// and height 4.8, from the block's cavity up to 4.8 - t above the top. The block's side wall
+/// trims the boss's cavity by its overhang: a lens under 1e-7 mm^3.
+///
+/// The boss is turned so that its seam lies where SolidCraft puts a cylinder's, 0.6131 rad
+/// off +X ([`SEAM_ANGLE_DEG`]), away from the touch.
+#[test]
+fn issue_22787_a_boss_overhanging_the_outer_edge_by_the_contact_tolerance_shells() {
+    use solidcore::primitive::api_primitives::create_cylinder;
+    let body = 60.0 * 40.0 * 25.0 + PI * 2.4 * 2.4 * 4.8;
+    for over in [1e-6, 1e-5] {
+        for t in [0.5, 1.0] {
+            let mut k = Kernel {
+                fixes: UpstreamFixes::all(),
+                ..Kernel::default()
+            };
+            let block =
+                create_box(&mut k, Point3::new(-30.0, -20.0, 0.0), 60.0, 40.0, 25.0).unwrap();
+            let boss = create_cylinder(&mut k, Point3::new(0.0, 0.0, 25.0), 2.4, 4.8).unwrap();
+            let boss = turned(&mut k, boss, SEAM_ANGLE_DEG, 27.6 + over);
+            let b = boolean_union(&mut k, block, boss).unwrap();
+            let options = ShellOptions {
+                offset: OffsetOptions {
+                    distance: -t,
+                    extend_convex_edges: true,
+                    merge_results: true,
+                },
+                create_offset_solid: true,
+                merge_sheet_side_walls: true,
+            };
+            let mut result = solidcore::offset::thin_features::shell_brep(&mut k, &b, options, &[])
+                .unwrap_or_else(|e| panic!("over {over}, wall {t}: {e}"));
+            result.refresh_cached_topology();
+            solidcore::topology::integrity::check(&result).unwrap();
+            assert!(brep_is_manifold_solid(&result).unwrap());
+            let check = check_brep(&mut k, &mut result, CheckLevel::Level2).unwrap();
+            assert!(
+                check.is_valid(),
+                "over {over}, wall {t}: {:?}",
+                check.failures().collect::<Vec<_>>()
+            );
+            let r = 2.4 - t;
+            let want =
+                body - (60.0 - 2.0 * t) * (40.0 - 2.0 * t) * (25.0 - 2.0 * t) - PI * r * r * 4.8;
+            let got = volume(&k, &mut result).unwrap();
+            assert!(
+                (got - want).abs() <= 1e-6,
+                "over {over}, wall {t}: {got} vs {want}"
+            );
+        }
+    }
+}
+
 /// `body` turned by `deg` about the vertical axis through the origin, then moved `dx` along x,
 /// with the affine matrix a body move hands the kernel (`p' = p A + t`).
 fn turned(k: &mut Kernel, mut body: Brep, deg: f64, dx: f64) -> Brep {

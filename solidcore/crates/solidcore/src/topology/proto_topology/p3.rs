@@ -475,7 +475,12 @@ impl<O: ClassObject> ProtoTopologyManager<O> {
         // but touch at one point (docs/booleans.md §6, "Circles a hair less than tangent"):
         // a point the surface intersection found where their lens meets the other face, one
         // of the two crossings `2√(2δ r1 r2 / (r1 ± r2))` apart, is that touching point.
-        if crossing.is_none() {
+        // Not upstream (solidcraft#22787): the same holds where the curve is the edge one of
+        // the two points lies on (a wire or lamina edge's own curve against the other B-rep,
+        // `intersect_wire_lamina_edges`): the point is that edge's crossing of the other.
+        if crossing.is_none_or(|(curve, _)| {
+            on_edge_curve(geometry, pc1, curve) || on_edge_curve(geometry, pc2, curve)
+        }) {
             touch_of_edges(k, geometry, pc1, pc2)?;
         }
 
@@ -3381,6 +3386,20 @@ fn crossing_sine<O: ClassObject>(
         return Ok(sine1);
     }
     Ok(sine1.min(sine2))
+}
+
+/// Not upstream (solidcraft#22787): whether `pc` lies on an edge whose curve is `curve`.
+fn on_edge_curve<O: ClassObject>(
+    geometry: &impl ProtoBrep<O>,
+    pc: &PointClassification<O>,
+    curve: O,
+) -> bool {
+    pc.point_class() == PointClassType::Edge
+        && pc
+            .edge_object()
+            .and_then(|e| geometry.edge_curve(e))
+            .flatten()
+            == Some(curve)
 }
 
 /// Not upstream: moves `pc1` and `pc2`, a point classified onto an edge of each B-rep, to

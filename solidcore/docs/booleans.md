@@ -814,7 +814,11 @@ What the port does today:
   both faces; with no curve through it, a point classified onto an edge of each operand is
   the crossing of those two edges, and where they are circles in one plane that touch by the
   contact rule it is their touching point (`touch_of_edges`, `proto_topology/p3.rs`, before
-  the proto vertex is looked for). And a flat face's domain is the box of its trims, so a
+  the proto vertex is looked for). So is a point where a wire or lamina edge's own curve
+  meets an edge of the other operand (`intersect_wire_lamina_edges`): the merge of a shell's
+  offset faces, where the offsets of a boss's wall and of the side it overhangs by up to the
+  contact tolerance keep that lens, met it at both crossings and split one face's edge at
+  the far one, which the next face's edge did not share. And a flat face's domain is the box of its trims, so a
   side of it runs along the face's round edge where that edge reaches the box: the plane's
   section of a cylinder or cone standing on the face, a circle a hair past the edge, was
   cut at the side, its two ends the lens's half length off the touch; it now touches that
