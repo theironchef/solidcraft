@@ -9448,3 +9448,79 @@ fn a_wing_through_its_cusps_rolls_over_alike_on_either_side() {
         }
     }
 }
+
+/// A box 35.7 x 14.7 x 4.3 at `corner` with the three edges at its corner (`corner` + (35.7,
+/// 14.7, 4.3)) rounded `first`, then the bottom edge into that corner rounded `second` with
+/// its tangent chain round the vertical round's foot. The rounded body and its volume.
+fn round_under_a_corner_round(corner: [f64; 3], first: f64, second: f64) -> (Body, f64) {
+    let [x, y, z] = corner;
+    let body = make_box(corner, [35.7, 14.7, 4.3]).unwrap();
+    let auto = BlendOptions {
+        turn: Turn::Auto,
+        ..BlendOptions::default()
+    };
+    let corner_edges: Vec<usize> = [
+        [x + 17.85, y + 14.7, z + 4.3],
+        [x + 35.7, y + 7.35, z + 4.3],
+        [x + 35.7, y + 14.7, z + 2.15],
+    ]
+    .iter()
+    .map(|&p| edge_at(&body, p))
+    .collect();
+    blend_with(
+        &body,
+        Blend::Round,
+        &corner_edges,
+        &[first],
+        &[],
+        Corners::Filled,
+        auto,
+    )
+    .unwrap();
+    let bottom = edge_at(&body, [x + 35.7, y + 3.675, z]);
+    let chain = tangent_chain(&body, None, &[bottom], &[], 2.0_f64.to_radians()).unwrap();
+    assert_eq!(
+        chain.members.len(),
+        3,
+        "the bottom edge, the round's foot and the next edge"
+    );
+    blend_with(
+        &body,
+        Blend::Round,
+        &chain.members,
+        &[second],
+        &[],
+        Corners::Filled,
+        auto,
+    )
+    .unwrap();
+    let volume = body.volume(1e-10).unwrap();
+    (body, volume)
+}
+
+/// #18461: a round just under the R 0.7 corner round beside it rolls round that round's foot
+/// as a thin surface of revolution (major radius 0.7 - r, 0.035 at most here). Its polar
+/// circle starts on that small radius, and its angles were measured from the NURB's end
+/// points: 250 mm from the origin they were off by the rounding of a coordinate over that
+/// radius, and SMLib's check refused the result (`SmSurfOfRevolution` Test #7, polar curve
+/// against sweep interval). At the origin the same rounds were valid. Now the polar circle
+/// takes the sweep interval, so the body is valid wherever it sits, with the volume it has at
+/// the origin.
+#[test]
+fn a_round_under_a_corner_round_is_valid_away_from_the_origin() {
+    all_fixes();
+    for second in [0.665, 0.6895, 0.693, 0.6972] {
+        let (far, far_volume) = round_under_a_corner_round([250.3, 120.7, -80.2], 0.7, second);
+        let report = far.check(CheckLevel::All).unwrap();
+        assert!(report.is_valid(), "r {second}: {report}");
+        let (near, near_volume) = round_under_a_corner_round([0.0; 3], 0.7, second);
+        assert!(
+            near.check(CheckLevel::All).unwrap().is_valid(),
+            "r {second} at the origin"
+        );
+        assert!(
+            (far_volume - near_volume).abs() <= 1e-9 * near_volume,
+            "r {second}: {far_volume} away, {near_volume} at the origin"
+        );
+    }
+}

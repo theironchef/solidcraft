@@ -35,6 +35,15 @@
 //! | [`test_for_iso_circles`], [`IsoCircles`]          | `sm_TestForIsoCircles`                           |
 //!
 //! Deviations:
+//! - **The polar circle spans the sweep interval (#18461, not upstream).**
+//!   `RebuildPolarConverter` gives its sweep circle the surface's sweep interval before the
+//!   table is set up on it. Upstream keeps the angles `CreateIsoParametricCurve` measured
+//!   from the NURB's end points. Such an angle is off by the rounding of the points'
+//!   coordinates over the circle's radius: for a small circle far from the origin (radius
+//!   0.01 at 130 mm) that is past `SmSurfOfRevolution` Test #7's tolerance, which compares
+//!   the two intervals. The table set-up
+//!   ([`crate::curve::ellipse::p2::set_up_polar_conversion`]) still measures the NURB's
+//!   ends, and keeps its own angles where they are not the sweep interval's to rounding.
 //! - **A whole turn within rounding (#2928, not upstream).** `MakeNurbWithSweepParams` sweeps
 //!   a window past 360° by no more than `SM_EFF_ZERO` of a turn as the whole turn, where
 //!   upstream asks `CreateCircleSegment` for the span as is and is refused past 360°.
@@ -833,6 +842,9 @@ impl SurfOfRevolution {
                 "the sweep iso curve is not a circle",
             ));
         };
+        // The circle is the whole sweep iso, so its angles are the sweep interval
+        // (#18461; upstream keeps the angles the iso curve measured from the NURB).
+        circle.set_step_interval(self.anal_uv_domain.u_interval());
         let r = set_up_polar_conversion(&mut self.polar, circle, k);
         self.polar_curve = Some(sweep_iso);
         r
@@ -2524,6 +2536,68 @@ mod tests {
         let r =
             SurfOfRevolution::create_canonical(&k(), Curve::from(l), Vec3::ZERO, Vec3::Z, false);
         assert!(matches!(&r, Err(e) if e.upstream_status() == Some(crate::error::SM_ERR)));
+    }
+
+    /// The polar circle is the surface's whole sweep iso, so its angles are the surface's
+    /// sweep interval, wherever the surface sits (#18461). The line `(rho, 0, 0)`-`(1.3, 0,
+    /// 1.29)` swept about Z from 0 to `span` degrees starts on a circle of radius `rho`.
+    /// Measured from its NURB's end points away from the world origin, that circle's angles
+    /// were off by the rounding of a coordinate over `rho`: 2e-10 degrees at `rho` 0.003 and
+    /// 130 mm, past `SmSurfOfRevolution` Test #7's 1.2e-10 degrees for a sweep of 123.4, and
+    /// 3e-7 degrees at `rho` 0.001 and 1e5 mm. 55 of these 100 surfaces were off before.
+    #[test]
+    fn the_polar_circle_spans_the_sweep_interval_far_from_the_origin() {
+        let k = k();
+        let mut checked = 0;
+        let mut off = Vec::new();
+        for origin in [
+            Vec3::ZERO,
+            Vec3::new(128.88, 6.05, 43.89),
+            Vec3::new(-1290.5, 730.25, 4400.125),
+            Vec3::new(1.0e5, 0.0, 0.0),
+        ] {
+            for rho in [1.0, 0.1, 0.01, 0.003, 0.001] {
+                for span in [90.0, 89.999_999_999_913_81, 37.5, 123.4, 270.0] {
+                    let mut l = Line::from_points(
+                        origin + Vec3::new(rho, 0.0, 0.0),
+                        origin + Vec3::new(1.3, 0.0, 1.29),
+                        3,
+                    );
+                    l.make_nurb().unwrap();
+                    let mut s = SurfOfRevolution::new(
+                        &k,
+                        Curve::from(l),
+                        origin,
+                        Vec3::X,
+                        Vec3::Y,
+                        Extent2d::from_bounds(0.0, 0.0, span, 1.0),
+                        false,
+                    )
+                    .unwrap();
+                    s.make_nurb(&k).unwrap();
+                    assert!(s.have_polar_conversion());
+                    let sweep = s.step_uv_domain().u_interval();
+                    let polar = s.polar_curve().unwrap().step_interval();
+                    if (polar.min(), polar.max()) != (sweep.min(), sweep.max()) {
+                        off.push(format!(
+                            "at {origin:?}, rho {rho}, span {span}: sweep [{}, {}], polar [{}, {}]",
+                            sweep.min(),
+                            sweep.max(),
+                            polar.min(),
+                            polar.max()
+                        ));
+                    }
+                    checked += 1;
+                }
+            }
+        }
+        assert_eq!(checked, 100);
+        assert!(
+            off.is_empty(),
+            "{} of {checked}:\n{}",
+            off.len(),
+            off.join("\n")
+        );
     }
 
     /// The full revolution about Z through the origin of the unbounded line

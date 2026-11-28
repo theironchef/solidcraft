@@ -70,6 +70,11 @@
 //!   STEP interval restored, so the temporary full-circle domain does not leak.
 //!   An open arc's (WR-719, the fork's cbeb14b) end angles are its ends' own polar angles rather than
 //!   `STEPInversion`'s, whose seam rule turns an end just short of 360 into 0.
+//!   A NURB end angle keeps the STEP interval's end where the two are one point to the
+//!   scaled zero of the end point's coordinates (`SM_EFF_ZERO * (1 + |p|)`), as well as
+//!   where they are within upstream's 1e-9 degrees (#18461): a measured angle is off by the
+//!   rounding of the point's coordinates over the radius, which grows with the distance
+//!   from the origin, so a small arc far from it lost its own interval to rounding.
 //!   [`PolarConversion::angle_param_to_nurb_param`] takes the span's end weights and
 //!   maps the standard-form root to the span's own parameter, exact for a span whose
 //!   end weights differ (an arc split off a longer arc away from its middle); upstream
@@ -2623,14 +2628,19 @@ pub(crate) fn set_up_polar_conversion(
             this_mid = next_mid;
         }
 
-        // watch out for tolerance creep
-        let low_change_deg = lowest_deg - anal_ivl.min();
-        if low_change_deg < EFF_ZERO * 1000.0 && low_change_deg > -EFF_ZERO * 1000.0 {
+        // watch out for tolerance creep: a measured end that is the STEP end to rounding
+        // keeps the STEP end, by its angle (upstream) or, not upstream (#18461), where the
+        // two are one point to the scaled zero of the measured point's coordinates
+        let radius = max2(e.radius_x, e.radius_y);
+        let same_end = |change_deg: f64, pnt: Point3| {
+            (change_deg < EFF_ZERO * 1000.0 && change_deg > -EFF_ZERO * 1000.0)
+                || radius * (change_deg * PI / 180.0).abs()
+                    <= EFF_ZERO * (1.0 + pnt.max_dimension())
+        };
+        if same_end(lowest_deg - anal_ivl.min(), pnt1) {
             lowest_deg = anal_ivl.min();
         }
-
-        let high_change_deg = highest_deg - anal_ivl.max();
-        if high_change_deg < EFF_ZERO * 1000.00 && high_change_deg > -EFF_ZERO * 1000.0 {
+        if same_end(highest_deg - anal_ivl.max(), pnt2) {
             highest_deg = anal_ivl.max();
         }
 
