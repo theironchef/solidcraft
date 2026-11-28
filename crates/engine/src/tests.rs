@@ -7906,29 +7906,27 @@ fn block_with_a_square_notch() -> Session {
     s
 }
 
-/// #18545: the top loop of a block with a 4.8 mm square notch in an edge, chamfered 4 and 2 mm,
-/// failed inside the blend (status 1001): the notch's side walls are 2.4 mm long, too short for
-/// the 4 mm side. It is refused naming the largest scale of the two distances that builds
-/// (2.4 / 4 less one step, 0.599); that scale builds, and 2 by 1 mm builds as before.
+/// #18545, #22797: the top loop of a block with a 4.8 mm square notch in an edge, chamfered `a`
+/// across the top and `b` down the walls. The notch's side edges are 2.4 mm long; #18545 refused
+/// a chamfer wider than them (it had failed inside the blend, status 1001), and #22797 builds it:
+/// in plan each side edge's chamfer is a parallelogram between the parallel mitres from the
+/// notch's mouth and inner corners. At depth `d <= b` every chamfer plane has moved in by
+/// `t = a (1 - d / b)`, so the section is the top's outline offset by `t` with sharp corners,
+/// `A(t) = (60 - 2t)(40 - 2t) - 2.4 (4.8 + 2t)`, and the notch (12.5 deep) is deeper than `b`:
+/// `V = 59856 - b (102.4 a - 4 a^2 / 3)`, 59656.5333 at 2 by 1 and 59079 + 7/15 at 4 by 2.
 #[test]
-fn an_unequal_chamfer_too_large_for_a_notch_names_the_scale_that_fits() {
+fn an_unequal_chamfer_wider_than_a_notch_s_side_edges_builds() {
     let edges =
         json!([[30, -10, 25], [-30, 10, 25], [-15, -20, 25], [16.2, 20, 25], [-16.2, 20, 25], [2.4, 18.8, 25], [-2.4, 18.8, 25], [0, 17.6, 25]]);
-    let chamfer = |d1: f64, d2: f64| {
+    for (a, b) in [(2.0_f64, 1.0_f64), (4.0, 2.0)] {
         let mut s = block_with_a_square_notch();
-        s.execute("solid.chamfer", &json!({"edges": edges, "distance": d1, "distance2": d2, "body": "Base"})).map(|_| ()).map_err(|e| e.to_string())
-    };
-    assert_eq!(chamfer(2.0, 1.0), Ok(()));
-    let e = chamfer(4.0, 2.0).unwrap_err();
-    assert!(!e.contains("1001"), "{e}");
-    assert!(e.contains("larger than the faces beside its edges allow"), "{e}");
-    let scale: f64 = e
-        .split_once("the largest that fits is ")
-        .and_then(|(_, rest)| rest.split_once(" times the distances given"))
-        .and_then(|(n, _)| n.parse().ok())
-        .unwrap_or_else(|| panic!("no scale named: {e}"));
-    assert!((scale - 0.599).abs() < 1e-9, "{e}");
-    assert_eq!(chamfer(4.0 * scale, 2.0 * scale), Ok(()), "the scale named builds");
+        if let Err(e) = s.execute("solid.chamfer", &json!({"edges": edges, "distance": a, "distance2": b, "body": "Base"})) {
+            panic!("{a} x {b}: {e}");
+        }
+        let want = 59856.0 - b * (102.4 * a - 4.0 * a * a / 3.0);
+        let v = volume(&mut s);
+        assert!((v - want).abs() <= 1e-6 * want, "{a} x {b}: {v} vs {want}");
+    }
 }
 
 /// #19691: a 1 mm extrusion of a closed spline with a 0.48 mm notch in its top rim 0.0001 mm

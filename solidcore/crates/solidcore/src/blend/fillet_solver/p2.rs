@@ -1029,6 +1029,119 @@ impl FilletSolver {
         store_parts(ops.solver(), pseudo, fillet_geom, parts)
     }
 
+    /// Not the fork's (#22797): the plane of a chamfer (a linear section) whose spine
+    /// `blend` classifies as a line, the chamfer's counterpart of
+    /// [`FilletSolver::calc_line_spine_fillet_geom`]. Both offsets are lines along the
+    /// spine there, so each rail is a line parallel to it (the centres' feet on the faces'
+    /// quadrics) and the section from rail to rail sweeps the plane through the two rails:
+    /// the bilinear patch on the rails' ends at the first and last stations, run on past
+    /// them as the round's cylinder is (the extension factor, or the trace's reach along
+    /// the edge where that is longer), its analytic plane recognised. Returns `true`: the
+    /// chamfer is built.
+    ///
+    /// u runs along the edge from the first station to the last, v from the rail on the
+    /// first face (v min) to the rail on the second (v max), as the linear section of
+    /// the circle spine's cone runs; the centre line is the spine's piece between the
+    /// stations' centres, on the surface's u range.
+    ///
+    /// # Errors
+    ///
+    /// `SM_ERR` for offsets that change between the stations or a foot not found on a
+    /// face's quadric; [`SolidError::InvalidInput`] for no tsect points; those of
+    /// `SetupOffsetValues`, the evaluations, the constructors and the store.
+    pub fn calc_line_spine_chamfer_geom(
+        ops: &mut dyn FilletSolverOps,
+        k: &Kernel,
+        _b: &Brep,
+        pseudo: &mut FilletBrep,
+        blend: &ExactBlend,
+        tsects: &[TsectPnt],
+        fillet_geom: Option<FilletGeomId>,
+    ) -> Result<bool> {
+        let (t_first, t_last) = first_last(tsects)?;
+        let start_uv0 = t_first.uv_pos(SrfIndex::First);
+        let end_uv0 = t_last.uv_pos(SrfIndex::First);
+
+        // the stations' centres: on the first offset at each end, offsets set for it
+        let radius0 = offset_radius(ops, t_first)?;
+        let center0 = eval_offset(k, ops.solver_mut(), 0, start_uv0)?;
+        let radius1 = offset_radius(ops, t_last)?;
+        let center1 = eval_offset(k, ops.solver_mut(), 0, end_uv0)?;
+        if (radius1 - radius0).abs() > EFF_ZERO {
+            return Err(fail(SolverFailure::RadiusNotConstant {
+                start: radius0,
+                end: radius1,
+            }));
+        }
+
+        // the centres on the class's exact line, the rails' ends their feet on the faces'
+        // quadrics (as the line class's cylinder, #2405)
+        let on_line = |c: Point3| blend.point + blend.dir * (c - blend.point).dot(blend.dir);
+        let mut center0 = on_line(center0);
+        let mut center1 = on_line(center1);
+        let [face0, face1] = &blend.faces;
+        let foot = |q: &BlendQuadric, side: usize, c: Point3| {
+            q.foot(c)
+                .ok_or_else(|| fail(SolverFailure::FootNotFound { side }))
+        };
+        let mut start_pnt0 = foot(face0, 0, center0)?;
+        let mut start_pnt1 = foot(face1, 1, center0)?;
+        let mut end_pnt0 = foot(face0, 0, center1)?;
+        let mut end_pnt1 = foot(face1, 1, center1)?;
+
+        // run on past the stations as the line class's cylinder is
+        let s = ops.solver();
+        let f = s.surface_extension_factor;
+        let span = center1.distance(center0);
+        let ext_factor = if s.trace_reach_along > 0.0 && span > EFF_ZERO_SQRT {
+            let along_f = s.trace_reach_along / span;
+            if along_f > f {
+                along_f
+            } else {
+                f
+            }
+        } else {
+            f
+        };
+        let ext0 = ext_factor * (end_pnt0 - start_pnt0);
+        let ext1 = ext_factor * (end_pnt1 - start_pnt1);
+        let center_ext = ext_factor * (center1 - center0);
+        if s.extend_before {
+            start_pnt0 -= ext0;
+            start_pnt1 -= ext1;
+            center0 -= center_ext;
+        }
+        if s.extend_after {
+            end_pnt0 += ext0;
+            end_pnt1 += ext1;
+            center1 += center_ext;
+        }
+
+        // the plane through the rails: u along the edge, v from the first face's rail
+        let patch =
+            BSplineSurface::create_bilinear_surface(start_pnt0, end_pnt0, start_pnt1, end_pnt1)?;
+        let plane = patch.copy_and_add_analytics(k)?;
+        let uv_domain = plane.natural_uv_domain_with_nurb(k)?;
+        let rail0 = plane
+            .create_iso_parametric_curve(k, SurfParamType::V, uv_domain.min.y, 0.0, None, false)?
+            .curve;
+        let rail_ivl0 = rail0.natural_interval();
+        let rail1 = plane
+            .create_iso_parametric_curve(k, SurfParamType::V, uv_domain.max.y, 0.0, None, false)?
+            .curve;
+        let rail_ivl1 = rail1.natural_interval();
+        let u_range = Extent1d::from_min_max(uv_domain.min.x, uv_domain.max.x);
+        let center_line = line_segment(center0, center1, &u_range)?;
+        let parts = FilletGeomParts {
+            surface: plane,
+            rails: [rail0, rail1],
+            rail_intervals: [Some(rail_ivl0), Some(rail_ivl1)],
+            center_line: Some(Curve::from(center_line)),
+        };
+        store_parts(ops.solver(), pseudo, fillet_geom, parts)?;
+        Ok(true)
+    }
+
     /// [`FilletSolver::cylinder_fillet_geom_parts`], or with `class` (the round's exact
     /// class, a line) `CalcLineSpineFilletGeom`'s: the same body without the generator and
     /// `IsLine` gates.

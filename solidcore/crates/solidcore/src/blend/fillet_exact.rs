@@ -3545,11 +3545,11 @@ fn exact_fillet_geom_of_class(
     };
     match blend.spine {
         BlendSpine::Line => {
-            // a chamfer on a straight spine is traced (its line from rail to rail is the
-            // face's plane)
-            if generator_type(ops).ok_or_else(|| {
+            let generator = generator_type(ops).ok_or_else(|| {
                 SolidError::blend(OP, BlendFailure::InputMissing(BlendInput::SurfaceGenerator))
-            })? != FilletSurfaceGeneratorType::Circular
+            })?;
+            if generator != FilletSurfaceGeneratorType::Circular
+                && generator != FilletSurfaceGeneratorType::Linear
             {
                 return Ok(false);
             }
@@ -3562,6 +3562,21 @@ fn exact_fillet_geom_of_class(
             }
             if c[0].distance(c[1]) <= EFF_ZERO_SQRT * 1.0_f64.max(blend.radius) {
                 return Ok(false);
+            }
+            if generator == FilletSurfaceGeneratorType::Linear {
+                // a chamfer on a straight spine: its rails are lines along the spine, so
+                // the section from rail to rail sweeps a plane, built exactly from the
+                // stations at the trace's ends and run on as far as the round's cylinder
+                // (#22797: no trace, whose domains end short of a mitre past a short edge)
+                return FilletSolver::calc_line_spine_chamfer_geom(
+                    ops,
+                    k,
+                    b,
+                    pseudo,
+                    blend,
+                    tsects,
+                    fillet_geom,
+                );
             }
             FilletSolver::calc_line_spine_fillet_geom(
                 ops,

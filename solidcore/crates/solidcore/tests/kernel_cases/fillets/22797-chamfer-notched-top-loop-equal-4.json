@@ -1,0 +1,305 @@
+{
+ "area": "fillets",
+ "bodies": {
+  "b0": {
+   "keeping_splines": false,
+   "trusted": true
+  },
+  "b1": {
+   "keeping_splines": false,
+   "trusted": true
+  }
+ },
+ "calls": [
+  {
+   "inputs": [
+    "b0"
+   ],
+   "op": "copy",
+   "outputs": [
+    "b2"
+   ],
+   "params": {}
+  },
+  {
+   "inputs": [
+    "b1"
+   ],
+   "op": "copy",
+   "outputs": [
+    "b3"
+   ],
+   "params": {}
+  },
+  {
+   "inputs": [
+    "b2"
+   ],
+   "op": "tagged",
+   "outputs": [
+    "b4"
+   ],
+   "params": {
+    "operand": 0
+   }
+  },
+  {
+   "inputs": [
+    "b3"
+   ],
+   "op": "tagged",
+   "outputs": [
+    "b5"
+   ],
+   "params": {
+    "operand": 1
+   }
+  },
+  {
+   "inputs": [
+    "b4",
+    "b5"
+   ],
+   "op": "boolean",
+   "outputs": [
+    "b6"
+   ],
+   "params": {
+    "op": "subtract"
+   }
+  },
+  {
+   "inputs": [
+    "b6"
+   ],
+   "op": "copy",
+   "outputs": [
+    "b7"
+   ],
+   "params": {}
+  },
+  {
+   "inputs": [
+    "b7"
+   ],
+   "op": "tagged",
+   "outputs": [
+    "b8"
+   ],
+   "params": {
+    "operand": 0
+   }
+  },
+  {
+   "inputs": [
+    "b8"
+   ],
+   "op": "blend_dropping",
+   "outputs": [
+    "b9"
+   ],
+   "params": {
+    "edges": {
+     "kind": "edge",
+     "picked": [
+      {
+       "at": [
+        [
+         -30.0,
+         -20.0,
+         25.0
+        ],
+        [
+         30.0,
+         -20.0,
+         25.0
+        ]
+       ],
+       "index": 3
+      },
+      {
+       "at": [
+        [
+         30.0,
+         -20.0,
+         25.0
+        ],
+        [
+         30.0,
+         20.0,
+         25.0
+        ]
+       ],
+       "index": 10
+      },
+      {
+       "at": [
+        [
+         -30.0,
+         -20.0,
+         25.0
+        ],
+        [
+         -30.0,
+         20.0,
+         25.0
+        ]
+       ],
+       "index": 4
+      },
+      {
+       "at": [
+        [
+         -30.0,
+         20.0,
+         25.0
+        ],
+        [
+         -2.3999999999999986,
+         20.0,
+         25.0
+        ]
+       ],
+       "index": 13
+      },
+      {
+       "at": [
+        [
+         2.4000000000000057,
+         20.0,
+         25.0
+        ],
+        [
+         30.0,
+         20.0,
+         25.0
+        ]
+       ],
+       "index": 12
+      },
+      {
+       "at": [
+        [
+         -2.4,
+         17.6,
+         25.0
+        ],
+        [
+         2.4,
+         17.6,
+         25.0
+        ]
+       ],
+       "index": 17
+      },
+      {
+       "at": [
+        [
+         -2.3999999999999986,
+         20.0,
+         25.0
+        ],
+        [
+         -2.4,
+         17.6,
+         25.0
+        ]
+       ],
+       "index": 18
+      },
+      {
+       "at": [
+        [
+         2.4,
+         17.6,
+         25.0
+        ],
+        [
+         2.4000000000000057,
+         20.0,
+         25.0
+        ]
+       ],
+       "index": 16
+      }
+     ],
+     "points": [
+      [
+       0.0,
+       -20.0,
+       25.0
+      ],
+      [
+       30.0,
+       0.0,
+       25.0
+      ],
+      [
+       -30.0,
+       0.0,
+       25.0
+      ],
+      [
+       -16.200000000000003,
+       20.0,
+       25.0
+      ],
+      [
+       16.2,
+       20.0,
+       25.0
+      ],
+      [
+       0.0,
+       17.6,
+       25.0
+      ],
+      [
+       -2.400000000000003,
+       18.8,
+       25.0
+      ],
+      [
+       2.3999999999999995,
+       18.8,
+       25.0
+      ]
+     ],
+     "tolerance": 3.8170843806184367
+    },
+    "kind": "chamfer",
+    "sizes": [
+     4.0
+    ],
+    "turn": "mitre"
+   }
+  }
+ ],
+ "case": "22797-chamfer-notched-top-loop-equal-4",
+ "expected": {
+  "body_count": 1,
+  "faces": 18,
+  "method": "V0 = 60*40*25 - 4.8*2.4*12.5 = 59856. Every chamfer is between the top and an upright wall, a across the top and b down the wall, mitred at every corner, so at depth d <= b below the top each chamfer plane has moved in by t = a (1 - d/b): the section is the top's outline offset by t with sharp corners, the rectangle shrunk by t on each side less the notch grown by t on its three sides (still 2.4 deep, the notch's side edges' offsets keeping length 2.4), A(t) = (60 - 2t)(40 - 2t) - 2.4 (4.8 + 2t). The notch (12.5 deep) is deeper than b, so below the top slab nothing changes: V = 59856 - 2388.48 b + (b/a) int_0^a A dt = 59856 - b (102.4 a - 4 a^2 / 3). Faces: bottom, top, five sides (+Y split by the notch), the notch's three walls and floor, eight chamfers = 18. an equal chamfer d = 4: V = 59856 - 4 (409.6 - 64/3) = 58302.9333...",
+  "outcome": "solid",
+  "source": "analytic",
+  "tolerance": {
+   "rel": 1e-09
+  },
+  "volume_mm3": 58302.933333333334
+ },
+ "expressible": true,
+ "operation_expressible": true,
+ "records": "22797-chamfer-notched-top-loop-equal-4.bodies.json.gz",
+ "result": [
+  {
+   "body": "Part",
+   "made": "b9"
+  }
+ ],
+ "sources": [
+  "tangency-labs/solidcraft#22797"
+ ],
+ "ungraded": [],
+ "what": "a 60 x 40 x 25 block with a 4.8 x 4.8 notch 12.5 deep centred on its top face's +Y edge, the top face's outer loop chamfered 4 across the top and 4 down the walls: the chamfer is wider than the notch's two 2.4-long side edges, whose chamfers run on past both their ends to the mitres from the notch's mouth and inner corners (in plan a parallelogram between parallel mitre lines); built as planes, it was refused as larger than its faces or failed tracing the chamfer past the notch's back wall ('Fillet Surface Computation Failure' in 0.50.0)",
+ "why_not": []
+}

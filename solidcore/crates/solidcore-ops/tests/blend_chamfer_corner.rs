@@ -498,3 +498,59 @@ fn an_l_block_s_inner_corner_of_three_chamfers_is_refused_naming_the_vertex() {
         assert_eq!(b.counts().unwrap()[0], 8, "{corner:?}");
     }
 }
+
+/// SolidCraft #22797: a 60 x 40 x 25 block with a 4.8 x 4.8 notch 12.5 deep centred on its top's
+/// +Y edge, the top's whole outer loop chamfered `a` across the top and `b` down the walls. The
+/// notch's side edges on the top are 2.4 long, shorter than `a` here, and the chamfer builds
+/// past them: in plan each side edge's chamfer is a parallelogram between the parallel mitres
+/// from the notch's mouth and inner corners. At depth `d <= b` below the top every chamfer plane
+/// has moved in by `t = a (1 - d / b)`, so the section is the top's outline offset by `t` with
+/// sharp corners: the rectangle shrunk by `t` on each side, less the notch grown by `t` on its
+/// three sides (still 2.4 deep), `A(t) = (60 - 2t)(40 - 2t) - 2.4 (4.8 + 2t)`. The notch is
+/// deeper than `b`, so below the slab nothing changes: `V = 59856 - 2388.48 b + (b / a)
+/// int_0^a A = 59856 - b (102.4 a - 4 a^2 / 3)`. The result has the block's ten faces (the +Y
+/// side split by the notch) and eight chamfers.
+fn notched_block() -> Body {
+    built(|k| {
+        let block = create_box(k, Point3::new(-30.0, -20.0, 0.0), 60.0, 40.0, 25.0)?;
+        let cut = create_box(k, Point3::new(-2.4, 17.6, 12.5), 4.8, 4.8, 12.5)?;
+        boolean_difference(k, block, cut)
+    })
+}
+
+fn notched_loop(b: &Body) -> Vec<usize> {
+    [
+        [0.0, -20.0, 25.0],
+        [30.0, 0.0, 25.0],
+        [-30.0, 0.0, 25.0],
+        [-15.0, 20.0, 25.0],
+        [15.0, 20.0, 25.0],
+        [0.0, 17.6, 25.0],
+        [-2.4, 18.8, 25.0],
+        [2.4, 18.8, 25.0],
+    ]
+    .iter()
+    .map(|&p| edge_at(b, p))
+    .collect()
+}
+
+fn notched_volume(a: f64, b: f64) -> f64 {
+    59856.0 - b * (102.4 * a - 4.0 * a * a / 3.0)
+}
+
+#[test]
+fn a_notched_loop_s_chamfer_wider_than_the_notch_s_side_edges_builds() {
+    all_fixes();
+    // (across the top, down the walls): the first fits beside the 2.4-long side edges, the
+    // others are wider than them; 4 x 2 is the issue's repro (59079 + 7/15)
+    for (a, b) in [(2.0, 1.0), (4.0, 2.0), (3.0, 3.0), (2.8, 2.8), (4.0, 4.0)] {
+        let body = notched_block();
+        let e = notched_loop(&body);
+        let r = chamfer_sides_facing(&body, &e, a, ChamferSecond::Distance(b), [0.0, 0.0, 1.0]);
+        assert!(r.is_ok(), "{a} x {b}: {r:?}");
+        let v = body.volume(1e-10).unwrap();
+        let want = notched_volume(a, b);
+        assert!((v - want).abs() <= 1e-9 * want, "{a} x {b}: {v} vs {want}");
+        assert_eq!(body.counts().unwrap()[0], 18, "{a} x {b}");
+    }
+}
